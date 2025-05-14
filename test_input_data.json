@@ -1,0 +1,43 @@
+{
+  "entry_value_data": {
+    "timestamp": "2024-04-01 09:15:00",
+    "ce_symbol": "RELIANCE24APR251240CE",
+    "ce_token": 123456,
+    "pe_symbol": "RELIANCE24APR241200PE",
+    "pe_token": 654321,
+    "ce_entry_price": 35.0,
+    "ce_entry_limit": 35.25,
+    "pe_entry_price": 28.0,
+    "pe_entry_limit": 28.2,
+    "ce_strike": 1240,
+    "pe_strike": 1200,
+    "expiry": "2024-04-25",
+    "lot_size": 500
+  },
+  "gttLists": [
+    { "message": "SUCCESS", "data": [] },
+    { "message": "SUCCESS", "data": [] }
+  ],
+  "orderBook": [
+    {
+      "data": [
+        {
+          "uniqueorderid": "GTTV3_prod_12345678",
+          "status": "triggered",
+          "averageprice": 35,
+          "tradingsymbol": "RELIANCE24APR251240CE",
+          "symboltoken": 123456
+        }
+      ]
+    }
+  ],
+  "gttDetails": {
+    "99999999": { "data": { "status": null, "qty": 202 } }
+  },
+  "ltpData": [
+    { "data": { "ltp": 44},"status": true  },
+    { "data": { "ltp": 48},"status": true },
+    { "data": { "ltp": 38},"status": true  },
+    { "data": { "ltp": 32},"status": true }
+  ]
+}

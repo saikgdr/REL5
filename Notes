@@ -1,0 +1,11 @@
+First Success order csv
+order_name	entered_price	symbol	token
+pe_order1	33	RELIANCE24APR241200PE	654321
+
+entered_price --> nothing but entry price
+
+limit price should be greater than the triggered price (This condition is for BUY orders)
+
+Limit price should be less than the triggered price (This is condition is for SELL Orders)
+
+Add additoinal conditions for entry. e.g. cancdle is below LBB and price is below LBB, so no buy. and also first 5 mntues candle is untouched to LBB.

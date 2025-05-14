@@ -1,0 +1,63 @@
+2025-05-12 22:31:55,504 - INFO - 🚀 Starting Trading Automation Workflow...
+2025-05-12 22:31:55,571 - INFO - ******** Started orders Monitoring from main_order_monitoring_loop at 2025-05-12 22:31:55.571********
+2025-05-12 22:31:55,573 - INFO - STEP1 IN ORDERS: Placing First set of orders at 2025-05-12 22:31:55.573
+2025-05-12 22:31:55,574 - INFO - Current Pending Orders: 0
+2025-05-12 22:31:55,574 - INFO - Current GTT Pending Orders: 0
+2025-05-12 22:31:55,575 - INFO - PE Current LTP: 27.43  is greater than 28.2. Not placing the PE Order
+2025-05-12 22:31:55,576 - INFO - CE Current LTP: 35.61  is greater than 35.25. Not placing the CE Order
+2025-05-12 22:31:56,078 - INFO - STEP1 IN ORDERS: Placing First set of orders at 2025-05-12 22:31:56.078
+2025-05-12 22:31:56,088 - INFO - Current Pending Orders: 0
+2025-05-12 22:31:56,088 - INFO - Current GTT Pending Orders: 0
+2025-05-12 22:31:56,089 - INFO - Condition is met PE Current LTP: 26.63  is less than 28.2 and CE Current LTP: 34.78  is less than 35.25
+2025-05-12 22:31:56,090 - INFO - GTT Order 'ce_order1' created successfully. Rule ID: 5587938
+2025-05-12 22:31:56,090 - INFO - CE Order Rule ID: 5587938
+2025-05-12 22:31:56,091 - INFO - GTT Order 'pe_order1' created successfully. Rule ID: 5634093
+2025-05-12 22:31:56,092 - INFO - PE Order Rule ID: 5634093
+2025-05-12 22:31:56,104 - INFO - ✅ 2 orders saved successfully to C:\Users\imrum\OneDrive\Desktop\Trae\REL5\data\orders\first_orders.csv
+2025-05-12 22:31:56,105 - INFO - CE Order sent
+2025-05-12 22:31:56,106 - INFO - PE Order Sent
+2025-05-12 22:31:56,107 - INFO - --------------First order created successfully------------------
+2025-05-12 22:31:56,610 - INFO - STEP2 IN ORDERS: Monitoring CE and PE orders, time is: 2025-05-12 22:31:56.610
+2025-05-12 22:31:57,012 - INFO - Cancelled GTT: 5587938
+2025-05-12 22:31:57,016 - INFO - ✅ 1 orders saved successfully to C:\Users\imrum\OneDrive\Desktop\Trae\REL5\data\orders\first_success_orders.csv
+2025-05-12 22:31:57,018 - INFO - --------------First PE order status was success and cancelled CE order 5587938----------------------------
+2025-05-12 22:31:57,520 - INFO - STEP3 IN ORDERS: Placing second set of gtt orders at 2025-05-12 22:31:57.520
+2025-05-12 22:31:57,520 - INFO - Target 1: Trigger =29.4 Price=29.1,Qty=200
+2025-05-12 22:31:57,520 - INFO - Stop-loss price:26.4, Stop-loss trigger: 26.6
+2025-05-12 22:31:57,521 - INFO - GTT Order 'gtt_order1' created successfully. Rule ID: 5736761
+2025-05-12 22:31:57,521 - INFO - GTT Order 'gtt_sl_order1' created successfully. Rule ID: 5340504
+2025-05-12 22:31:57,522 - INFO - GTT Order 'gtt_sl_order2' created successfully. Rule ID: 5625162
+2025-05-12 22:31:57,522 - INFO - GTT Order 'gtt_sl_order3' created successfully. Rule ID: 5148298
+2025-05-12 22:31:57,524 - INFO - ✅ 4 orders saved successfully to C:\Users\imrum\OneDrive\Desktop\Trae\REL5\data\orders\second_orders_placed.csv
+2025-05-12 22:31:57,526 - INFO - -----------Second set of orders was created successfully-------------------
+2025-05-12 22:31:57,526 - INFO - --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2025-05-12 22:31:58,027 - INFO - STEP4 IN ORDERS: Monitoring second set, at: 2025-05-12 22:31:58.027
+2025-05-12 22:31:58,027 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:31:58.027
+2025-05-12 22:31:58,532 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:31:58.532
+2025-05-12 22:31:59,038 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:31:59.038
+2025-05-12 22:31:59,546 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:31:59.546
+2025-05-12 22:32:00,050 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:00.050
+2025-05-12 22:32:00,553 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:00.553
+2025-05-12 22:32:01,060 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:01.060
+2025-05-12 22:32:01,569 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:01.569
+2025-05-12 22:32:02,073 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:02.073
+2025-05-12 22:32:02,576 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:02.576
+2025-05-12 22:32:03,084 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:03.084
+2025-05-12 22:32:03,592 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:03.592
+2025-05-12 22:32:04,096 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:04.096
+2025-05-12 22:32:04,599 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:04.599
+2025-05-12 22:32:05,102 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:05.102
+2025-05-12 22:32:05,609 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:05.609
+2025-05-12 22:32:06,117 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:06.117
+2025-05-12 22:32:06,623 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:06.623
+2025-05-12 22:32:07,126 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:07.126
+2025-05-12 22:32:07,632 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:07.632
+2025-05-12 22:32:08,142 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:08.141
+2025-05-12 22:32:08,646 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:08.646
+2025-05-12 22:32:09,148 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:09.148
+2025-05-12 22:32:09,652 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:09.652
+2025-05-12 22:32:10,160 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:10.160
+2025-05-12 22:32:10,669 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:10.669
+2025-05-12 22:32:11,172 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:11.172
+2025-05-12 22:32:11,676 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:11.676
+2025-05-12 22:32:12,184 - INFO - STEP4 in Orders: Monitoring second set of gtt order check status at 2025-05-12 22:32:12.184

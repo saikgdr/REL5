@@ -1,0 +1,22 @@
+2025-05-09 09:36:46,928 - INFO - 🚀 Starting Trading Automation Workflow...
+2025-05-09 09:36:46,928 - INFO - ✅ All Backup files are taken backup
+2025-05-09 09:36:46,929 - INFO - ✅ All Order Backup files are taken backup
+2025-05-09 09:36:46,932 - INFO - 📈 Stock selected: TATAMOTORS
+2025-05-09 09:36:46,932 - INFO - 📦 Quantity selected: 5
+2025-05-09 09:36:47,054 - INFO - ⬇️  Downloading latest ScripMaster...
+2025-05-09 09:36:53,323 - INFO - ✅ ScripMaster downloaded and saved to /home/ec2-user/REL5/data/current/scripmaster.csv
+2025-05-09 09:36:55,387 - INFO - 🎉 Logged in successfully as KOTA SAI KRISHNA KISHORE
+2025-05-09 09:36:55,395 - INFO - ✅ Picked current month valid future: TATAMOTORS29MAY25FUT
+2025-05-09 09:36:56,090 - INFO - ⏰ Target time reached! Fetching multi-option data...
+2025-05-09 09:36:56,095 - INFO - CE Strike: 700, PE Strike: 710, Expiry: 29MAY25
+2025-05-09 09:36:56,095 - INFO - CE Strike List: [670, 680, 690, 700, 710, 720, 730]
+2025-05-09 09:36:56,095 - INFO - PE Strike List: [680, 690, 700, 710, 720, 730, 740]
+2025-05-09 09:36:56,118 - INFO - CE Symbol-Token List: [('TATAMOTORS29MAY25670CE', 142677), ('TATAMOTORS29MAY25680CE', 128188), ('TATAMOTORS29MAY25690CE', 142679), ('TATAMOTORS29MAY25700CE', 128190), ('TATAMOTORS29MAY25710CE', 142681), ('TATAMOTORS29MAY25720CE', 128192), ('TATAMOTORS29MAY25730CE', 142683)]
+2025-05-09 09:36:56,119 - INFO - PE Symbol-Token List: [('TATAMOTORS29MAY25680PE', 128189), ('TATAMOTORS29MAY25690PE', 142680), ('TATAMOTORS29MAY25700PE', 128191), ('TATAMOTORS29MAY25710PE', 142682), ('TATAMOTORS29MAY25720PE', 128193), ('TATAMOTORS29MAY25730PE', 142718), ('TATAMOTORS29MAY25740PE', 128195)]
+2025-05-09 09:36:56,119 - INFO - ⏳ Collecting mutltiple options ltp data until 2025-05-09 09:19:53+05:30 IST...
+2025-05-09 09:36:56,119 - INFO - ✅ Time reached. Stopping data collection.
+2025-05-09 09:36:56,121 - INFO - ✅ Fetching of ltp for multiple options completed successfully
+2025-05-09 09:36:56,807 - INFO - ❌ ERROR: No rows found for symbol: TATAMOTORS29MAY25700CE in /home/ec2-user/REL5/data/current/multi_options_data.csv
+2025-05-09 09:36:56,808 - INFO - ❌ ERROR:: ---------There was no data in multi options file. Please Run the main.py file by enabling all parameters in flow control python file..------------
+2025-05-09 09:36:56,808 - INFO - ✅ MAIN Workflow execution completed.
+2025-05-09 09:36:56,809 - INFO - ⏱️ Total time taken: 9.88 seconds

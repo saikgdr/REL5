@@ -1,0 +1,16 @@
+2025-05-09 09:07:25,340 - INFO - 🚀 Starting Trading Automation Workflow...
+2025-05-09 09:07:25,341 - INFO - ✅ All Backup files are taken backup
+2025-05-09 09:07:25,341 - INFO - ✅ All Order Backup files are taken backup
+2025-05-09 09:07:25,344 - INFO - 📈 Stock selected: POLYCAB
+2025-05-09 09:07:25,345 - INFO - 📦 Quantity selected: 5
+2025-05-09 09:07:25,465 - INFO - ⬇️  Downloading latest ScripMaster...
+2025-05-09 09:07:32,340 - INFO - ✅ ScripMaster downloaded and saved to /home/ec2-user/REL5/data/current/scripmaster.csv
+2025-05-09 09:07:34,422 - INFO - 🎉 Logged in successfully as KOTA SAI KRISHNA KISHORE
+2025-05-09 09:07:34,428 - INFO - ✅ Picked current month valid future: POLYCAB29MAY25FUT
+2025-05-09 09:15:00,795 - INFO - ⏰ Target time reached! Fetching multi-option data...
+2025-05-09 09:15:00,800 - INFO - CE Strike: 5700, PE Strike: 5800, Expiry: 29MAY25
+2025-05-09 09:15:00,800 - INFO - CE Strike List: [5400, 5500, 5600, 5700, 5800, 5900, 6000]
+2025-05-09 09:15:00,800 - INFO - PE Strike List: [5500, 5600, 5700, 5800, 5900, 6000, 6100]
+2025-05-09 09:15:00,823 - INFO - CE Symbol-Token List: [('POLYCAB29MAY255400CE', 117930), ('POLYCAB29MAY255500CE', 131657), ('POLYCAB29MAY255600CE', 117939), ('POLYCAB29MAY255700CE', 131659), ('POLYCAB29MAY255800CE', 117941), ('POLYCAB29MAY255900CE', 131661), ('POLYCAB29MAY256000CE', 117943)]
+2025-05-09 09:15:00,824 - INFO - PE Symbol-Token List: [('POLYCAB29MAY255500PE', 131658), ('POLYCAB29MAY255600PE', 117940), ('POLYCAB29MAY255700PE', 131660), ('POLYCAB29MAY255800PE', 117942), ('POLYCAB29MAY255900PE', 131662), ('POLYCAB29MAY256000PE', 117944), ('POLYCAB29MAY256100PE', 131664)]
+2025-05-09 09:15:00,824 - INFO - ⏳ Collecting mutltiple options ltp data until 2025-05-09 12:34:53+05:30 IST...

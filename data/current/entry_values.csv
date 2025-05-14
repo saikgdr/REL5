@@ -1,0 +1,2 @@
+timestamp,ce_symbol,ce_token,pe_symbol,pe_token,ce_entry_price,ce_entry_limit,pe_entry_price,pe_entry_limit,ce_strike,pe_strike,expiry,lot_size
+2025-05-14 09:20:00,ETERNAL29MAY25230CE,140691,ETERNAL29MAY25235PE,146347,9.5,9.55,9.35,9.4,230,235,29MAY25,2000

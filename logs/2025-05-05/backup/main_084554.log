@@ -1,0 +1,9 @@
+2025-05-05 08:41:56,398 - INFO - 🚀 Starting Trading Automation Workflow...
+2025-05-05 08:41:56,400 - INFO - ✅ All Backup files are taken backup
+2025-05-05 08:41:56,400 - INFO - ✅ All Order Backup files are taken backup
+2025-05-05 08:41:56,402 - INFO - 📈 Stock selected: RELIANCE
+2025-05-05 08:41:56,403 - INFO - 📦 Quantity selected: 5
+2025-05-05 08:41:56,532 - INFO - ⬇️  Downloading latest ScripMaster...
+2025-05-05 08:42:02,016 - INFO - ✅ ScripMaster downloaded and saved to /home/ec2-user/REL5/data/current/scripmaster.csv
+2025-05-05 08:42:04,112 - INFO - 🎉 Logged in successfully as KOTA SAI KRISHNA KISHORE
+2025-05-05 08:42:04,119 - INFO - ✅ Picked current month valid future: RELIANCE29MAY25FUT
