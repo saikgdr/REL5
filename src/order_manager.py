@@ -98,11 +98,11 @@ class OrderManager:
                     self.logger.write(f"{self.entry_value_data_dict['ce_symbol']}'s Current LTP: {ce_current_ltp} is greater than {self.entry_value_data_dict['ce_entry_limit']}. Not placing the CE Order")
                     self.logger.write(f"{self.entry_value_data_dict['pe_symbol']}'s Current LTP: {pe_current_ltp} is greater than {self.entry_value_data_dict['pe_entry_limit']}. Not placing the PE Order")
             else:
-                self.logger.write("⚠️ Unable to fetch LTP values from the SmartAPI")
+                self.logger.write("WARNING: Unable to fetch LTP values from the SmartAPI")
 
         if current_gtt_pending_orders == 2:
             order_status = False
-            self.logger.write("❌ ERROR: Manually delete the GTT Orders in UI")
+            self.logger.write("ERROR: Manually delete the GTT Orders in UI")
 
         return order_status
 
@@ -114,7 +114,7 @@ class OrderManager:
         :param order_records: List of dictionaries with order details.
         """
         if not order_records:
-            self.logger.write("⚠️ No orders to save.")
+            self.logger.write("WARNING: No orders to save.")
             return
 
         # Create a DataFrame directly
@@ -134,7 +134,7 @@ class OrderManager:
             df = pd.read_csv(entry_value_file_path)
 
             if df.empty:
-                self.logger.write(f"❌ ERROR: File {entry_value_file_path} is empty.")
+                self.logger.write(f"ERROR: File {entry_value_file_path} is empty.")
                 return None
 
             # Use only the first row (assuming it's single row data)
@@ -160,7 +160,7 @@ class OrderManager:
             return output
 
         except Exception as e:
-            self.logger.write(f"❌ ERROR: Failed to read and process {entry_value_file_path}: {str(e)}")
+            self.logger.write(f"ERROR: Failed to read and process {entry_value_file_path}: {str(e)}")
             return None
 
     def gtt_active_orders_count(self):
@@ -234,13 +234,13 @@ class OrderManager:
         and return as a structured nested dictionary.
         """
         if not os.path.isfile(file_path):
-            self.logger.write(f"❌ ERROR: File not found: {file_path}")
+            self.logger.write(f"ERROR: File not found: {file_path}")
             return None
         try:
             df = pd.read_csv(file_path)
 
             if df.empty:
-                self.logger.write(f"❌ ERROR: No records in {file_path}")
+                self.logger.write(f"ERROR: No records in {file_path}")
                 return None
 
             # Build nested dictionary
@@ -261,7 +261,7 @@ class OrderManager:
             return orders_dict
 
         except Exception as e:
-            self.logger.write(f"❌ ERROR: Failed to read and parse {file_path}: {str(e)}")
+            self.logger.write(f"ERROR: Failed to read and parse {file_path}: {str(e)}")
             return None
 
     def check_status_of_first_two_gtt_orders_in_orderbook(self):
@@ -339,8 +339,8 @@ class OrderManager:
             df=pd.read_csv(first_success_order_file_path)
 
             if len(df)== 0:
-                self.logger.write(f"❌ ERROR: There was no data in first success order file {first_success_order_file_path}")
-                raise Exception (f"❌ ERROR: There was no data in first success order file {first_success_order_file_path}")
+                self.logger.write(f"ERROR: There was no data in first success order file {first_success_order_file_path}")
+                raise Exception (f"ERROR: There was no data in first success order file {first_success_order_file_path}")
 
             for i in df.index:
                 self.first_success_order_data_dict['order_name'] = df.loc[i,"order_name"]
@@ -353,7 +353,6 @@ class OrderManager:
                                                                    self.first_success_order_data_dict['token'],
                                                                    self.first_success_order_data_dict['entered_price'])
 
-        # trade_name, trading_symbol, symbol_token, entered_price = "ce_order1", "RELIANCE24APR251240CE", 141559, 35
         order_status = False
         if trade_name in ["ce_order1", "pe_order1"]:
             trigger_price1,limit_price1,sl_price,sl_trigger_price,qty1,qty2,qty3 = second_set_of_gtt_orders_creation(entered_price,self.entry_value_data_dict['lot_size'],self.qty)
@@ -366,20 +365,20 @@ class OrderManager:
 
             gtt_order1_rule_id=create_gtt_order(self.smartApi,"gtt_order1", trading_symbol, symbol_token, trigger_price1, limit_price1, "SELL", qty1,self.logger)
             if gtt_order1_rule_id is None:
-                self.logger.write(f"❌ Error: GTT Order1 creation was failed.")
+                self.logger.write(f"Error: GTT Order1 creation was failed.")
                 return order_status
 
             gtt_sl_order1_rule_id=create_gtt_order(self.smartApi,"gtt_sl_order1", trading_symbol, symbol_token, sl_trigger_price, sl_price, "SELL",qty1,self.logger)
             if gtt_sl_order1_rule_id is None:
                 cancel_gtt_order(self.smartApi,gtt_order1_rule_id,self.first_success_order_data_dict['token'],self.logger)
-                self.logger.write(f"❌ Error:GTT SL Order1 creation was failed so cancelling the GTT Order 1 as well.")
+                self.logger.write(f"Error:GTT SL Order1 creation was failed so cancelling the GTT Order 1 as well.")
                 return order_status
 
             gtt_sl_order2_rule_id=create_gtt_order(self.smartApi,"gtt_sl_order2", trading_symbol, symbol_token, sl_trigger_price, sl_price, "SELL",qty2,self.logger)
             if gtt_sl_order2_rule_id is None:
                 cancel_gtt_order(self.smartApi, gtt_order1_rule_id, self.first_success_order_data_dict['token'],self.logger)
                 cancel_gtt_order(self.smartApi, gtt_sl_order1_rule_id, self.first_success_order_data_dict['token'],self.logger)
-                self.logger.write(f"❌ Error:GTT SL Order2 creation was failed so cancelling the GTT Order 1 and GTT SL order1 as well.")
+                self.logger.write(f"Error:GTT SL Order2 creation was failed so cancelling the GTT Order 1 and GTT SL order1 as well.")
                 return order_status
 
             gtt_sl_order3_rule_id=create_gtt_order(self.smartApi,"gtt_sl_order3", trading_symbol, symbol_token, sl_trigger_price, sl_price, "SELL",qty3,self.logger)
@@ -387,7 +386,7 @@ class OrderManager:
                 cancel_gtt_order(self.smartApi, gtt_order1_rule_id, self.first_success_order_data_dict['token'],self.logger)
                 cancel_gtt_order(self.smartApi, gtt_sl_order1_rule_id, self.first_success_order_data_dict['token'],self.logger)
                 cancel_gtt_order(self.smartApi, gtt_sl_order2_rule_id, self.first_success_order_data_dict['token'],self.logger)
-                self.logger.write(f"❌ Error:GTT SL Order3 creation was failed so cancelling all Four GTT Orders.")
+                self.logger.write(f"Error:GTT SL Order3 creation was failed so cancelling all Four GTT Orders.")
                 return order_status
 
             second_order_playload = [
@@ -524,7 +523,7 @@ class OrderManager:
     def monitor_third_orders(self):  ### Imran Thougghts :: CHECK IF ORDER IS ALIVE THEN PROCEED WITH MODIFICATIONS OTHERWISE BREAK
         order_status=True
         assumption_value = roundof(1.15)
-        assumption_third_order = roundof(1.4)
+        assumption_third_order = roundof(1.35)
         gtt_sl_order2_status = True
         gtt_sl_order3_status = True
         trading_symbol = self.first_success_order_data_dict["symbol"]
@@ -548,60 +547,60 @@ class OrderManager:
             try:
                 time.sleep(0.5)
                 modified_sl_order2_value = roundof(assumption_value - 0.1)
-                modified_sl_order3_value = roundof(assumption_value - 0.2)
+                modified_sl_order3_value = roundof(assumption_third_order - 0.2) # Imran modified on 15 May when it is not setting up correct SL
                 ltp_response = self.smartApi.ltpData(exchange="NFO", tradingsymbol=trading_symbol, symboltoken=symbol_token)
                 ltp_response = ltp_response["data"]["ltp"]
-                self.logger.write(f"STEP5 in Orders: Monitoring Third set, LTP: {ltp_response} at {datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}")
+                self.logger.write(f"STEP5 in Orders: Monitoring THIRD set:")
+
                 if gtt_sl_order2_status is not None and gtt_sl_order2_status != 'SENTTOEXCHANGE':
                     gtt_sl_order2_info_from_api = self.smartApi.gttDetails(rule_sl_id2)
                     gtt_sl_order2_status = gtt_sl_order2_info_from_api["data"]["status"]
                     qtty2 = gtt_sl_order2_info_from_api["data"]["qty"]
-
+                    self.logger.write(f"LTP: {ltp_response} , waiting for {assumption_value} % price: {roundof(entered_price * assumption_value)}") 
+                
                 if gtt_sl_order3_status is not None and gtt_sl_order3_status != 'SENTTOEXCHANGE':
                     gtt_sl_order3_info_from_api = self.smartApi.gttDetails(rule_sl_id3)
                     gtt_sl_order3_status = gtt_sl_order3_info_from_api["data"]["status"]
                     qtty3 = gtt_sl_order3_info_from_api["data"]["qty"]
-            
-                self.logger.write(f"LTP: {ltp_response} , waiting for  "
-                                  f"{assumption_value}% at {roundof(entered_price * assumption_value)} AND for"
-                                  f"{assumption_third_order}% at {roundof(entered_price * assumption_third_order)}"
-                                  f"SL Order2 Status: {gtt_sl_order2_status} SL Order3 Status: {gtt_sl_order3_status}")
-                # ltp_response = 110
+                    self.logger.write(f"LTP: {ltp_response} , waiting for {assumption_third_order} % price: {roundof(entered_price * assumption_third_order)}")
+                
+                self.logger.write(f"SL Order2 Status: {gtt_sl_order2_status}. SL Order3 Status: {gtt_sl_order3_status}.")
+                
                 if assumption_value == assumption_third_order and ltp_response >= entered_price * assumption_value:
-                    self.logger.write(f"Third order Assumption Value Reached {assumption_third_order}") ## starts with 1.38, 1.78 and son on
+                    self.logger.write(f"Third order Assumption Value Reached {assumption_third_order}") ## starts with 1.35, 1.55 and son on
 
                     if gtt_sl_order3_status in ["NEW", "ACTIVE"] and gtt_sl_order2_status in ["NEW", "ACTIVE"]:
                         self.logger.write(f"-----------Both GTT SL Order2 and GTT SL order3 status are active state so modifying both sl order values-----")
-                        modify_gtt_sl(self.smartApi,rule_sl_id2,sl_token_id2,roundof(entered_price * modified_sl_order2_value), qtty2,self.logger)
-                        modify_gtt_sl(self.smartApi,rule_sl_id3,sl_token_id3,roundof(entered_price * modified_sl_order3_value), qtty3,self.logger)
+                        modify_gtt_sl(self.smartApi,rule_sl_id2,sl_token_id2,roundof(entered_price * modified_sl_order2_value), qtty2, self.logger)
+                        modify_gtt_sl(self.smartApi,rule_sl_id3,sl_token_id3,roundof(entered_price * modified_sl_order3_value), qtty3, self.logger)
 
                         self.logger.write(
-                            f"Current Modified the SL Order 2 triggered value: entered price {entered_price}:"
-                            f" modified_sl_order2_value: {modified_sl_order2_value},  from {previous_sl_order2} to  {roundof(entered_price * modified_sl_order2_value)}")
+                            f"    Modified the SL Order 2 trigger value to entered price: {entered_price}:"
+                            f"    Modified_sl_order2_value: {modified_sl_order2_value} from {previous_sl_order2} to {roundof(entered_price * modified_sl_order2_value)}")
 
                         self.logger.write(
-                            f"Current Modified the SL Order 3 triggered value: entered price {entered_price}:"
-                            f" modified_sl_order3_value: {modified_sl_order3_value},  from {previous_sl_order3} to {roundof(entered_price * modified_sl_order3_value)}")
+                            f"    Modified the SL Order 3 trigger value to entered price: {entered_price}:"
+                            f"    Modified_sl_order3_value: {modified_sl_order3_value} from {previous_sl_order3} to {roundof(entered_price * modified_sl_order3_value)}")
 
-                        self.logger.write(f"Current assumption value:{assumption_value} and Third order assumption value {assumption_third_order}")
+                        self.logger.write(f"Current assumption value: {assumption_value} and Third order assumption value {assumption_third_order}")
 
                         assumption_value = roundof(assumption_value + 0.1)
                         assumption_third_order = roundof(assumption_third_order + 0.2)
                         previous_sl_order2 = roundof(entered_price * modified_sl_order2_value)
                         previous_sl_order3 = roundof(entered_price * modified_sl_order3_value)
 
-                        self.logger.write(f"Modified the assumption value to {assumption_value} and third order assumption value:{assumption_third_order}")
+                        self.logger.write(f"Modified the assumption value to {assumption_value} and THIRD order assumption value to {assumption_third_order}")
                         self.logger.write(f"{'--'*100}")
 
                     elif gtt_sl_order3_status in ["NEW", "ACTIVE"]:
                         self.logger.write(f"-----------Only GTT SL Order3 are active state and GTT SL order2 in-active state so modifying sl order3 values-----")
-                        modify_gtt_sl(self.smartApi,rule_sl_id3,sl_token_id3, roundof(entered_price * modified_sl_order3_value), qtty3,self.logger)
+                        modify_gtt_sl(self.smartApi,rule_sl_id3,sl_token_id3, roundof(entered_price * modified_sl_order3_value), qtty3, self.logger)
 
                         self.logger.write(
-                            f"Current Modified the SL Order 3 triggered value: entered price {entered_price}:"
+                            f"Current Modified the SL Order 3 trigger value to entered price: {entered_price}"
                             f" modified_sl_value: {modified_sl_order3_value}, from {previous_sl_order3} to {roundof(entered_price * modified_sl_order3_value)}")
 
-                        self.logger.write(f"Current assumption value:{assumption_value} and Third order assumption value {assumption_third_order}")
+                        self.logger.write(f"Current assumption value:{assumption_value}, Third order assumption value: {assumption_third_order}")
 
                         assumption_value = roundof(assumption_value + 0.1)
                         assumption_third_order = roundof(assumption_third_order + 0.2)
@@ -615,7 +614,7 @@ class OrderManager:
                         order_status = True
                         break
 
-                elif ltp_response >= entered_price * assumption_value and (gtt_sl_order2_status is None or gtt_sl_order2_status == 'SENTTOEXCHANGE') and gtt_sl_order3_status is not None:   ## stars with 1.08 and goes on
+                elif ltp_response >= entered_price * assumption_value and (gtt_sl_order2_status is None or gtt_sl_order2_status == 'SENTTOEXCHANGE') and gtt_sl_order3_status is not None:   ## stars with 1.1 and goes on
                     if gtt_sl_order3_status in ["NEW", "ACTIVE"]:
                         self.logger.write(f"-----------Only GTT SL Order3 are active state and GTT SL order2 in-active state so modifying sl order3 values-----")
                         modify_gtt_sl(self.smartApi,rule_sl_id3,sl_token_id3,roundof(entered_price * modified_sl_order3_value),qtty3,self.logger)
