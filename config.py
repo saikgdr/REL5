@@ -61,6 +61,6 @@ option_data_target_min=15
 option_data_target_sec=0
 
 ## end time control 9hr:19min:53sec (Multi option fetch data)
-multi_option_fetch_data_hr=20
-multi_option_fetch_data_min=26
-multi_option_fetch_data_sec=53
+multi_option_fetch_data_hr=19
+multi_option_fetch_data_min=45
+multi_option_fetch_data_sec=50

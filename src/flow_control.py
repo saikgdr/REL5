@@ -5,7 +5,7 @@ flow_control = {
     "fetch_scrip_master_data_and_calculate_future_price": True,
     "multi_optional_data": True,
     "entry_value_creations": True,
-    "orders": True,
+    "orders": False,
 
     "placing_first_order": True,
     "first_order_status_checking": True,
@@ -19,6 +19,6 @@ flow_control = {
     "second_order_status": False,
     "monitor_second_order_status": False,
     "monitor_third_orders_flag": False,
-    "cancelled_sl_orders":False
+    "cancelled_sl_orders": False
 
 }

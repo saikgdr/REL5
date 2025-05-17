@@ -1,0 +1,23 @@
+2025-05-17 19:43:15,975 - INFO - 🚀 Starting Trading Automation Workflow...
+2025-05-17 19:43:15,982 - INFO - ✅ All Backup files are taken backup
+2025-05-17 19:43:15,982 - INFO - ✅ All Order Backup files are taken backup
+2025-05-17 19:43:16,009 - INFO - 📈 Stock selected: ETERNAL
+2025-05-17 19:43:16,010 - INFO - 📦 Quantity selected: 5
+2025-05-17 19:43:17,469 - INFO - ⬇️  Downloading latest ScripMaster...
+2025-05-17 19:43:23,542 - INFO - ✅ ScripMaster downloaded and saved to c:\Users\imrum\OneDrive\Desktop\Trae\REL5\data\current\scripmaster.csv
+2025-05-17 19:43:24,018 - INFO - 🎉 Logged in successfully as KOTA SAI KRISHNA KISHORE
+2025-05-17 19:43:24,045 - INFO - ✅ Picked current month valid future: ETERNAL29MAY25FUT
+2025-05-17 19:43:24,317 - INFO - ⏰ Target time reached! Fetching multi-option data...
+2025-05-17 19:43:24,322 - INFO - CE Strike: 245, PE Strike: 245, Expiry: 29MAY25
+2025-05-17 19:43:24,330 - INFO - CE Strike List: [230, 235, 240, 245, 250, 255, 260]
+2025-05-17 19:43:24,332 - INFO - PE Strike List: [230, 235, 240, 245, 250, 255, 260]
+2025-05-17 19:43:24,430 - INFO - CE Symbol-Token List: [('ETERNAL29MAY25230CE', 140691), ('ETERNAL29MAY25235CE', 146346), ('ETERNAL29MAY25240CE', 140695), ('ETERNAL29MAY25245CE', 146348), ('ETERNAL29MAY25250CE', 140699), ('ETERNAL29MAY25255CE', 146350), ('ETERNAL29MAY25260CE', 140769)]
+2025-05-17 19:43:24,430 - INFO - PE Symbol-Token List: [('ETERNAL29MAY25230PE', 140694), ('ETERNAL29MAY25235PE', 146347), ('ETERNAL29MAY25240PE', 140698), ('ETERNAL29MAY25245PE', 146349), ('ETERNAL29MAY25250PE', 140768), ('ETERNAL29MAY25255PE', 146351), ('ETERNAL29MAY25260PE', 140770)]
+2025-05-17 19:43:24,432 - INFO - ⏳ Collecting mutltiple options ltp data until 2025-05-17 19:45:53+05:30 IST...
+2025-05-17 19:45:55,955 - INFO - ✅ Time reached. Stopping data collection.
+2025-05-17 19:45:55,972 - INFO - ✅ Fetching of ltp for multiple options completed successfully
+2025-05-17 19:45:56,342 - INFO - Before calculation CE High value is ETERNAL29MAY25245CE --> 6.45 and PE High value is ETERNAL29MAY25245PE--> 6.15
+2025-05-17 19:45:56,342 - INFO - 📁 Entry data saved to c:\Users\imrum\OneDrive\Desktop\Trae\REL5\data\current\entry_values.csv
+2025-05-17 19:45:56,349 - INFO - Entry value calculation time taken  2025-05-17 19:45:56
+2025-05-17 19:45:56,349 - INFO - ✅ MAIN Workflow execution completed.
+2025-05-17 19:45:56,349 - INFO - ⏱️ Total time taken: 160.38 seconds

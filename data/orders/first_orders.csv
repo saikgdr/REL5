@@ -1,3 +1,0 @@
-timestamp,order_name,symbol,token,rule_id,triggered_price,limit_price
-2025-05-14 20:25:01,ce_order1,RELIANCE24APR251240CE,123456,5283714,35.0,35.25
-2025-05-14 20:25:01,pe_order1,RELIANCE24APR241200PE,654321,5399986,28.0,28.2

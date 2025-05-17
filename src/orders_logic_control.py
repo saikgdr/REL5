@@ -16,14 +16,12 @@ def second_set_of_gtt_orders_creation(entered_price,lotsize,qty):
     qty1 = int((qty * 0.40) * lotsize)
     qty2 = int((qty * 0.40) * lotsize)
     qty3 = int((qty * 0.20) * lotsize)
-
     return trigger_price,limit_price,sl_price,sl_trigger_price,qty1,qty2,qty3
 
+## As on 17 May 25 we arae not using the following funtion anywhere.
 def third_orders_assumption_values():
-
-    assumption_value = roundof(1.2)
-    assumption_third_order = roundof(1.4)
+    assumption_value = roundof(1.15)
+    assumption_third_order = roundof(1.35)
     modified_sl_order2= 0.1
     modified_sl_order3 = 0.2
-
     return assumption_value,assumption_third_order,modified_sl_order3,modified_sl_order2

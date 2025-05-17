@@ -1,0 +1,39 @@
+2025-05-15 09:43:32,759 - ERROR - Error fetching banned stocks: Expecting value: line 1 column 1 (char 0)
+2025-05-15 09:43:32,759 - INFO - No stocks are banned for today
+2025-05-15 09:43:32,759 - INFO - Starting stock selection process at 09:43:32
+2025-05-15 09:43:32,759 - INFO - Fetching pre-market data...
+2025-05-15 09:43:47,103 - INFO - Fetched pre-market data for 211 stocks
+2025-05-15 09:43:47,107 - INFO - Calculating selection metrics...
+2025-05-15 09:43:47,107 - INFO - Filtering out stocks with gaps greater than 0.75%
+2025-05-15 09:43:47,111 - INFO - Filtered out 32 stocks with significant gaps
+2025-05-15 09:43:47,113 - INFO - Ranking stocks based on criteria for rising stocks...
+2025-05-15 09:43:47,123 - INFO - Ranking stocks based on criteria for falling stocks...
+2025-05-15 09:43:47,147 - INFO - Selected COROMANDEL as the best stock for CE options trading
+2025-05-15 09:43:47,166 - INFO - Selected MUTHOOTFIN as the best stock for PE options trading
+2025-05-15 09:43:47,167 - INFO - Total processing time: 14.41 seconds
+2025-05-15 16:25:18,769 - ERROR - Error fetching banned stocks: Expecting value: line 1 column 1 (char 0)
+2025-05-15 16:25:18,779 - INFO - No stocks are banned for today
+2025-05-15 16:25:18,779 - INFO - Starting stock selection process at 16:25:18
+2025-05-15 16:25:18,779 - INFO - Fetching pre-market data...
+2025-05-15 16:25:31,093 - INFO - Fetched pre-market data for 211 stocks
+2025-05-15 16:25:31,094 - INFO - Calculating selection metrics...
+2025-05-15 16:25:31,094 - INFO - Filtering out stocks with gaps greater than 0.75%
+2025-05-15 16:25:31,094 - INFO - Filtered out 30 stocks with significant gaps
+2025-05-15 16:25:31,094 - INFO - Ranking stocks based on criteria for rising stocks...
+2025-05-15 16:25:31,094 - INFO - Ranking stocks based on criteria for falling stocks...
+2025-05-15 16:25:31,114 - INFO - Selected HEROMOTOCO as the best stock for CE options trading
+2025-05-15 16:25:31,125 - INFO - Selected MUTHOOTFIN as the best stock for PE options trading
+2025-05-15 16:25:31,125 - INFO - Total processing time: 12.35 seconds
+2025-05-17 11:22:03,527 - INFO - Found 0 banned stocks
+2025-05-17 11:22:03,527 - INFO - No stocks are banned for today
+2025-05-17 11:22:03,527 - INFO - Starting stock selection process at 11:22:03
+2025-05-17 11:22:03,527 - INFO - Fetching pre-market data...
+2025-05-17 11:22:16,263 - INFO - Fetched pre-market data for 211 stocks
+2025-05-17 11:22:16,263 - INFO - Calculating selection metrics...
+2025-05-17 11:22:16,263 - INFO - Filtering out stocks with gaps greater than 0.75%
+2025-05-17 11:22:16,271 - INFO - Filtered out 29 stocks with significant gaps
+2025-05-17 11:22:16,272 - INFO - Ranking stocks based on criteria for rising stocks...
+2025-05-17 11:22:16,285 - INFO - Ranking stocks based on criteria for falling stocks...
+2025-05-17 11:22:16,300 - INFO - Selected MCX as the best stock for CE options trading
+2025-05-17 11:22:16,303 - INFO - Selected HCLTECH as the best stock for PE options trading
+2025-05-17 11:22:16,303 - INFO - Total processing time: 12.78 seconds
