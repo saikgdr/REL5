@@ -1,5 +1,6 @@
 import os
-import csv,pytz
+import csv
+import pytz
 import time
 from datetime import datetime
 import pandas as pd
@@ -33,7 +34,7 @@ class OrderManager:
         self.logger.write(f"Current Pending Orders: {current_pending_orders}")
         current_gtt_pending_orders = self.gtt_active_orders_count()
         self.logger.write(f"Current GTT Pending Orders: {current_gtt_pending_orders}")
-        order_status=False
+        order_status = False
 
         if current_gtt_pending_orders == 0 and current_pending_orders == 0:
             ce_current_ltp = fetch_ltp(self.smartApi,self.entry_value_data_dict['ce_symbol'], self.entry_value_data_dict['ce_token'],self.logger)
@@ -42,9 +43,9 @@ class OrderManager:
             if ce_current_ltp is not None and pe_current_ltp is not None:
                 if ce_current_ltp <= self.entry_value_data_dict['ce_entry_limit'] and pe_current_ltp <= self.entry_value_data_dict['pe_entry_limit']:
                     self.logger.write(f"{self.entry_value_data_dict['ce_symbol']}'s Current LTP: {ce_current_ltp} is less than entry price: {self.entry_value_data_dict['ce_entry_limit']} and {self.entry_value_data_dict['pe_symbol']}'s Current LTP: {pe_current_ltp} is less than entry price: {self.entry_value_data_dict['pe_entry_limit']}")
-                    ce_order1_rule_id=create_gtt_order(self.smartApi, "ce_order1", self.entry_value_data_dict['ce_symbol'], self.entry_value_data_dict['ce_token'],
+                    ce_order1_rule_id = create_gtt_order(self.smartApi, "ce_order1", self.entry_value_data_dict['ce_symbol'], self.entry_value_data_dict['ce_token'],
                                      self.entry_value_data_dict['ce_entry_price'], self.entry_value_data_dict['ce_entry_limit'],
-                                     "BUY", self.entry_value_data_dict['lot_size'] * self.qty,self.logger)
+                                     "BUY", self.entry_value_data_dict['lot_size'] * self.qty, self.logger)
 
                     self.logger.write(f"CE Order Rule ID: {ce_order1_rule_id}")
                     if ce_order1_rule_id is None: # if ce order is not created we are handle from this step
@@ -61,7 +62,7 @@ class OrderManager:
                         cancel_gtt_order(self.smartApi,ce_order1_rule_id,self.entry_value_data_dict['ce_token'],self.logger)
                         return order_status
 
-                    ## creating first orders list
+                    # creating first orders list
                     orders_list = [
                         {
                             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -86,7 +87,7 @@ class OrderManager:
                     self.save_orders_in_csv_file(orders_list,first_orders_file_path)
 
                     ## update this first order data to global variable
-                    if len(self.first_order_data_dict)==0:
+                    if len(self.first_order_data_dict) == 0:
                         self.first_order_data_dict['ce_order1'] = {'rule_id':ce_order1_rule_id}
                         self.first_order_data_dict['pe_order1'] = {'rule_id': pe_order1_rule_id}
 
@@ -233,8 +234,8 @@ class OrderManager:
             return None
 
     def check_status_of_first_two_gtt_orders_in_orderbook(self):
-        order_status=False
-        if len(self.first_order_data_dict)==0:
+        order_status = False
+        if len(self.first_order_data_dict) == 0:
             self.first_order_data_dict=self.read_first_placed_orders(first_orders_file_path)
             if self.first_order_data_dict is None:
                 return order_status
@@ -273,7 +274,7 @@ class OrderManager:
                              "symbol":order["tradingsymbol"],
                              "token":order["symboltoken"]}
                         order_status = True
-                        self.logger.write(f"--------------First CE order status was success and cancelled PE order {pe_order_rule_id}----------------------------")
+                        self.logger.write(f"-------------- First CE order Executed, cancelled PE order {pe_order_rule_id} --------------")
                         break
                     self.logger.write(f"CE Order Status: {ce_order_status}")
 
@@ -304,16 +305,16 @@ class OrderManager:
 
     def second_set_of_orders(self):
         if len(self.first_success_order_data_dict)==0:
-            df=pd.read_csv(first_success_order_file_path)
+            df = pd.read_csv(first_success_order_file_path)
 
-            if len(df)== 0:
+            if len(df) == 0:
                 self.logger.write(f"ERROR: There was no data in first success order file {first_success_order_file_path}")
                 raise Exception (f"ERROR: There was no data in first success order file {first_success_order_file_path}")
 
             for i in df.index:
                 self.first_success_order_data_dict['order_name'] = df.loc[i,"order_name"]
                 self.first_success_order_data_dict['symbol'] =  df.loc[i,"symbol"]
-                self.first_success_order_data_dict['token'] =df.loc[i,"token"]
+                self.first_success_order_data_dict['token'] = df.loc[i,"token"]
                 self.first_success_order_data_dict['entered_price'] = df.loc[i,"entered_price"]
 
         trade_name, trading_symbol, symbol_token, entered_price = (self.first_success_order_data_dict['order_name'],
