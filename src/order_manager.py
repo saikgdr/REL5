@@ -181,7 +181,7 @@ class OrderManager:
         try:
             status = [
                 "NEW",
-                "ACTIVE",
+                "ACTIVE"
             ]
             response = self.smartApi.gttLists(status, 1, gtt_orders_count_list)
 
