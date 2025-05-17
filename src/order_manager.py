@@ -433,7 +433,7 @@ class OrderManager:
                 # self.cancel_all_orders()  # Add logic to cancel all orders here
                 break  # Exit the loop
             try:
-                self.logger.write(f"STEP4 in Orders: Monitoring second set at {datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}")
+                self.logger.write(f"STEP4 in Orders: Monitoring SECOND set ")
                 time.sleep(0.5)
                 rule_id1 = gtt_order1_info["rule_id"]
                 rule_sl_id1 = gtt_sl_order1_info["rule_id"]
@@ -709,7 +709,7 @@ class OrderManager:
                             flow_control['monitoring_second_orders']=False
 
                 elif  self.monitor_third_orders_flag and flow_control['monitoring_third_orders']:
-                    self.logger.write(f"STEP5 IN ORDERS: Monitoring third set (Trailing orders) at {datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}")
+                    self.logger.write(f"STEP5 IN ORDERS: Monitoring THIRD set (Trailing orders)")
                     monitor_third_orders_flag = self.monitor_third_orders()
                     if monitor_third_orders_flag:
                         self.logger.write("************ Ended: All orders processed successfully Restarting the Orders.*******************")
@@ -721,9 +721,6 @@ class OrderManager:
 
             except Exception as e:
                 self.logger.write(f"Error occurred in order processing:", error=True, exc=e)
-                # Optionally, log the error using a logger
-                # logger.error(f"Order processing failed: {str(e)}")
-                ##break  # Exit the loop on exception
                 time.sleep(2)
 
             time.sleep(0.5)  # Wait for 0.5 second before the next iteration
