@@ -11,7 +11,7 @@ from src.orders_logic_control import second_set_of_gtt_orders_creation
 from SmartApi.smartExceptions import DataException
 
 class OrderManager:
-    def __init__(self, smartApi, stock_name, qty,entry_value_data,logger,testing=False):
+    def __init__(self, smartApi, stock_name, qty, entry_value_data, logger, testing=False):
         self.smartApi = smartApi
         self.stock_name = stock_name.upper()
         self.qty = qty
@@ -127,7 +127,6 @@ class OrderManager:
         self.logger.write(f"✅ {len(order_records)} orders saved successfully to {save_file_path}")
 
     def get_entry_values_data(self):
-
         """
         Read entry values from a CSV file and return a structured dictionary.
         """
@@ -251,13 +250,13 @@ class OrderManager:
         today_str = datetime.now().strftime("%d-%b-%Y")
 
         if orderbook_response_data is not None:
-            data=orderbook_response['data']
+            data = orderbook_response['data']
             todays_filtered_order_book_data = [record for record in data if record.get("updatetime", "").startswith(today_str)]
             for order in todays_filtered_order_book_data:
                 if order.get('uniqueorderid') == ce_unique_order_id or ce_unique_order_id in order.get('uniqueorderid'):
                     ce_order_status = order.get('status').lower() in ['triggered', 'complete']
                     if ce_order_status:
-                        time.sleep(0.1)  ## need to modify
+                        time.sleep(0.1)
                         cancel_gtt_order(self.smartApi,pe_order_rule_id,self.entry_value_data_dict['pe_token'],self.logger)
                         ce_success_order_list = [
                             {"order_name":"ce_order1",
@@ -269,10 +268,10 @@ class OrderManager:
 
                         ## update this first success ce order data to global variable
                         if len(self.first_success_order_data_dict) == 0:
-                            self.first_success_order_data_dict = {"order_name":"ce_order1",
-                             "entered_price":order["averageprice"],
-                             "symbol":order["tradingsymbol"],
-                             "token":order["symboltoken"]}
+                            self.first_success_order_data_dict = {"order_name": "ce_order1",
+                             "entered_price": order["averageprice"],
+                             "symbol": order["tradingsymbol"],
+                             "token": order["symboltoken"]}
                         order_status = True
                         self.logger.write(f"-------------- First CE order Executed, cancelled PE order {pe_order_rule_id} --------------")
                         break
@@ -324,7 +323,7 @@ class OrderManager:
 
         order_status = False
         if trade_name in ["ce_order1", "pe_order1"]:
-            trigger_price1,limit_price1,sl_price,sl_trigger_price,qty1,qty2,qty3 = second_set_of_gtt_orders_creation(entered_price,self.entry_value_data_dict['lot_size'],self.qty)
+            trigger_price1, limit_price1, sl_price, sl_trigger_price, qty1, qty2, qty3 = second_set_of_gtt_orders_creation(entered_price,self.entry_value_data_dict['lot_size'],self.qty)
 
             # self.logger.write final calculated values
             self.logger.write(f"Target 1: Trigger ={trigger_price1} Price={limit_price1},Qty={qty1}")
