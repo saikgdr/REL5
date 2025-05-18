@@ -1,6 +1,12 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import logging
 from datetime import datetime
 from SmartApi.smartExceptions import DataException
+from angel_client import AngelOneClient
+from logger_manager import LoggerManager
 
 class PositionExitManager:
     def __init__(self, smartApi, logger=None):
@@ -20,13 +26,13 @@ class PositionExitManager:
             response = self.smartApi.position()
             if response['message'] == 'SUCCESS' and response['data']:
                 return response['data']
-            self.logger.info("No open positions found.")
+            self.logger.write("No open positions found.")
             return []
         except DataException as e:
-            self.logger.error(f"Error fetching positions: {str(e)}")
+            self.logger.write(f"Error fetching positions: {str(e)}", error=True)
             return None
         except Exception as e:
-            self.logger.error(f"Unexpected error while fetching positions: {str(e)}")
+            self.logger.write(f"Unexpected error while fetching positions: {str(e)}", error=True)
             return None
 
     def exit_position(self, position):
@@ -48,25 +54,25 @@ class PositionExitManager:
             # Place exit order
             response = self.smartApi.placeOrder(order_params)
             if response['status']:
-                self.logger.info(f"Successfully placed exit order for {position['tradingsymbol']}")
+                self.logger.write(f"Successfully placed exit order for {position['tradingsymbol']}")
                 return True
             else:
-                self.logger.error(f"Failed to place exit order for {position['tradingsymbol']}: {response['message']}")
+                self.logger.write(f"Failed to place exit order for {position['tradingsymbol']}: {response['message']}", error=True)
                 return False
 
         except Exception as e:
-            self.logger.error(f"Error exiting position {position['tradingsymbol']}: {str(e)}")
+            self.logger.write(f"Error exiting position {position['tradingsymbol']}: {str(e)}", error=True)
             return False
 
     def exit_all_positions(self):
         """Exit all open positions in the account."""
         positions = self.get_open_positions()
         if positions is None:
-            self.logger.error("Failed to fetch positions. Exiting.")
+            self.logger.write("Failed to fetch positions. Exiting.", error=True)
             return False
 
         if not positions:
-            self.logger.info("No positions to exit.")
+            self.logger.write("No positions to exit.")
             return True
 
         success_count = 0
@@ -77,18 +83,20 @@ class PositionExitManager:
                 if self.exit_position(position):
                     success_count += 1
 
-        self.logger.info(f"Successfully exited {success_count} out of {total_positions} positions")
+        self.logger.write(f"Successfully exited {success_count} out of {total_positions} positions")
         return success_count == total_positions
 
 def main():
-    # This section would be implemented based on your authentication setup
-    # Example usage:
-    # from smart_api import SmartConnect
-    # api_key = "YOUR_API_KEY"
-    # smartApi = SmartConnect(api_key)
-    # position_manager = PositionExitManager(smartApi)
-    # position_manager.exit_all_positions()
-    pass
+    # Setup logging
+    logger = LoggerManager()
+    
+    # Initialize and login to Angel One
+    angel_client = AngelOneClient(logger)
+    smartApi = angel_client.login()
+    
+    # Initialize position manager and exit positions
+    position_manager = PositionExitManager(smartApi, logger)
+    position_manager.exit_all_positions()
 
 if __name__ == "__main__":
     main()
