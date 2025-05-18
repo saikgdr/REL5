@@ -28,14 +28,14 @@ class OrderManager:
         self.monitor_second_order_status = flow_control['monitor_second_order_status']
         self.monitor_third_orders_flag = flow_control['monitor_third_orders_flag']
         self.cancelled_sl_orders = False
-
+        
     def first_orders(self):
         current_pending_orders = pending_orders_count(self.smartApi,self.logger)
         self.logger.write(f"Current Pending Orders: {current_pending_orders}")
         current_gtt_pending_orders = self.gtt_active_orders_count()
         self.logger.write(f"Current GTT Pending Orders: {current_gtt_pending_orders}")
         order_status = False
-
+        
         if current_gtt_pending_orders == 0 and current_pending_orders == 0:
             ce_current_ltp = fetch_ltp(self.smartApi,self.entry_value_data_dict['ce_symbol'], self.entry_value_data_dict['ce_token'],self.logger)
             pe_current_ltp = fetch_ltp(self.smartApi,self.entry_value_data_dict['pe_symbol'], self.entry_value_data_dict['pe_token'],self.logger)
@@ -111,7 +111,6 @@ class OrderManager:
         """
         Save order records to a CSV file using Pandas.
         Always overwrite the file with the fresh records.
-
         :param order_records: List of dictionaries with order details.
         """
         if not order_records:
@@ -123,7 +122,6 @@ class OrderManager:
 
         # Save DataFrame to CSV (overwrite mode)
         df.to_csv(save_file_path, index=False)
-
         self.logger.write(f"✅ {len(order_records)} orders saved successfully to {save_file_path}")
 
     def get_entry_values_data(self):
@@ -156,9 +154,7 @@ class OrderManager:
                 "expiry": row['expiry'],
                 "lot_size": int(row['lot_size'])
             }
-
             return output
-
         except Exception as e:
             self.logger.write(f"ERROR: Failed to read and process {entry_value_file_path}: {str(e)}")
             return None
@@ -225,7 +221,6 @@ class OrderManager:
                 orders_dict[order_key] = {
                     "rule_id": row['rule_id'],  # Important: mapping unique_order_id => rule_id
                 }
-
             return orders_dict
 
         except Exception as e:
@@ -653,14 +648,8 @@ class OrderManager:
             mock_api.first_two_rule_ids = []
             mock_api.ltp_cache = {}  # Stores last known LTP per symbol token
 
-
     def main_order_monitoring_loop(self,mock_api=None):
-        """
-        Main loop to monitor and manage order statuses.
-        """
-        # Set the end time to 23:59:00 in Asia/Kolkata timezone
         END_TIME = datetime.now(pytz.timezone("Asia/Kolkata")).replace(hour=order_endtime_hr, minute=order_endtime_min, second=0, microsecond=0)
-
         self.logger.write(f"******** Started orders Monitoring from main_order_monitoring_loop at {datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}********")
         condition = datetime.now(pytz.timezone("Asia/Kolkata")) < END_TIME
         print(datetime.now(pytz.timezone("Asia/Kolkata")))

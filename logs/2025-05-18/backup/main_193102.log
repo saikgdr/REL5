@@ -1,0 +1,4 @@
+2025-05-18 19:29:30,022 - INFO - 🎉 Logged in successfully as KOTA SAI KRISHNA KISHORE
+2025-05-18 19:29:30,153 - INFO - No open orders found
+2025-05-18 19:29:30,153 - INFO - Error fetching or saving GTT list: 'SmartConnect' object has no attribute 'gtt_lists'
+2025-05-18 19:29:30,255 - INFO - Error in fallback GTT fetch: Expecting value: line 1 column 1 (char 0)
