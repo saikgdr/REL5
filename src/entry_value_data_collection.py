@@ -56,7 +56,6 @@ class EntryValuesData:
         })
 
         # return data for sequential order
-        self.logger.write(f"Entry value calculation time taken  {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}")
         return {
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "ce_symbol": options_data['ce_symbol'],

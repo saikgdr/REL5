@@ -1,0 +1,3 @@
+2025-05-18 20:06:36,978 - INFO - 🎉 Logged in successfully as KOTA SAI KRISHNA KISHORE
+2025-05-18 20:06:37,125 - INFO - No orders found in order book
+2025-05-18 20:06:37,127 - INFO - Error fetching GTT list: 'SmartConnect' object has no attribute 'gtt_lists'

@@ -10,7 +10,7 @@ from SmartApi.smartExceptions import DataException
 from src.angel_client import AngelOneClient
 from src.logger_manager import LoggerManager
 
-class OrderFetcher:
+class OrderBookManager:
     def __init__(self, smartApi, logger=None):
         self.smartApi = smartApi
         self.logger = logger or self._setup_default_logger()
@@ -22,29 +22,33 @@ class OrderFetcher:
         )
         return logging.getLogger(__name__)
 
-    def get_open_orders(self):
+    def fetch_and_save_orders(self):
         try:
             orders = self.smartApi.orderBook()
-            if orders and orders['data']:
-                self.logger.write("Successfully fetched open orders")
-                # Save orders to file with timestamp
-                timestamp = datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y%m%d_%H%M%S')
-                filename = f'data/orders/orders_{timestamp}.json'
-                with open(filename, 'w') as f:
-                    json.dump(orders, f, indent=4)
-                self.logger.write(f"Orders saved to {filename}")
-                return orders['data']
-            else:
-                self.logger.write("No open orders found")
-                return []
-        except DataException as e:
-            self.logger.write(f"Error fetching open orders: {str(e)}", error=True)
-            return []
-        except Exception as e:
-            self.logger.write(f"Unexpected error fetching orders: {str(e)}", error=True)
-            return []
+            timestamp = datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y%m%d_%H%M%S')
+            filename = f'order_book_{timestamp}.txt'
 
-    def fetch_gtt_list_fallback(self):
+            if orders and orders['data']:
+                self.logger.write("Successfully fetched order book")
+                # Display orders
+                for order in orders['data']:
+                    self.logger.write(json.dumps(order, indent=4))
+                
+                # Save to file
+                with open(filename, 'w') as f:
+                    json.dump(orders['data'], f, indent=4)
+                self.logger.write(f"Orders saved to {filename}")
+            else:
+                self.logger.write("No orders found in order book")
+                with open(filename, 'w') as f:
+                    f.write("No orders found")
+
+        except DataException as e:
+            self.logger.write(f"Error fetching order book: {str(e)}", error=True)
+        except Exception as e:
+            self.logger.write(f"Unexpected error fetching order book: {str(e)}", error=True)
+
+    def fetch_and_save_gtt(self):
         try:
             headers = {
                 'Authorization': f'Bearer {self.smartApi.access_token}',
@@ -54,113 +58,66 @@ class OrderFetcher:
             url = "https://apiconnect.angelbroking.com/rest/secure/angelbroking/gtt/v1/getgtt"
             response = requests.get(url, headers=headers)
 
+            timestamp = datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%Y%m%d_%H%M%S')
+            filename = f'gtt_book_{timestamp}.txt'
+
             if response.status_code == 200:
-                gtt_data = response.json()
-                tz = pytz.timezone("Asia/Kolkata")
-                today = datetime.now(tz).date()
+                # Check if response has content
+                if response.content:
+                    try:
+                        gtt_data = response.json()
+                        if gtt_data and gtt_data.get('data'):
+                            self.logger.write("Successfully fetched GTT list")
+                            # Display GTT orders
+                            for gtt in gtt_data['data']:
+                                self.logger.write(json.dumps(gtt, indent=4))
 
-                todays_gtts = [
-                    gtt for gtt in gtt_data['data']
-                    if datetime.fromtimestamp(gtt['created_on'], tz).date() == today
-                ]
-
-                timestamp_str = datetime.now(tz).strftime("%Y-%m-%d_%H-%M")
-                filename = f"gttList_{timestamp_str}.txt"
-                with open(filename, "w") as file:
-                    json.dump(todays_gtts, file, indent=2)
-
-                self.logger.write(f"Saved {len(todays_gtts)} GTT entries to {filename}")
+                            # Save to file
+                            with open(filename, 'w') as f:
+                                json.dump(gtt_data['data'], f, indent=4)
+                            self.logger.write(f"GTT list saved to {filename}")
+                        else:
+                            self.logger.write("No GTT orders found in response data")
+                            with open(filename, 'w') as f:
+                                f.write("No GTT orders found")
+                    except json.JSONDecodeError as e:
+                        error_msg = f"Invalid JSON response: {response.text}"
+                        self.logger.write(error_msg, error=True)
+                        with open(filename, 'w') as f:
+                            f.write(error_msg)
+                else:
+                    error_msg = "Empty response received from GTT API"
+                    self.logger.write(error_msg, error=True)
+                    with open(filename, 'w') as f:
+                        f.write(error_msg)
             else:
-                self.logger.write(f"Failed to fetch GTT list: {response.text}", error=True)
+                error_msg = f"Failed to fetch GTT list. Status code: {response.status_code}, Response: {response.text}"
+                self.logger.write(error_msg, error=True)
+                with open(filename, 'w') as f:
+                    f.write(error_msg)
+
         except Exception as e:
-            self.logger.write(f"Error in fallback GTT fetch: {str(e)}", error=True)
+            self.logger.write(f"Error fetching GTT list: {str(e)}", error=True)
 
 def main():
     # Setup logging
     logger = LoggerManager()
     
     # Initialize and login to Angel One
-    global smartApi, order_fetcher
     angel_client = AngelOneClient(logger)
     smartApi = angel_client.login()
-    order_fetcher = OrderFetcher(smartApi, logger)
+    
     if smartApi:
-        # Fetch open orders
-        order_fetcher.get_open_orders()  # Correct
-        if orders:
-            logger.write("Open Orders:")
-            for order in orders:
-                logger.write(json.dumps(order, indent=4))
+        # Initialize order book manager
+        order_manager = OrderBookManager(smartApi, logger)
         
-        # Fetch GTT list
-        order_fetcher.fetch_gtt_list_fallback()
+        # Fetch and save order book
+        order_manager.fetch_and_save_orders()
+        
+        # Fetch and save GTT list
+        order_manager.fetch_and_save_gtt()
     else:
         logger.write("Failed to initialize SmartAPI", error=True)
 
 if __name__ == "__main__":
     main()
-import requests
-
-def fetch_gtt_list_fallback(smartApi):
-    try:
-        headers = {
-            'Authorization': f'Bearer {smartApi.jwt_token}',
-            'Content-Type': 'application/json'
-        }
-
-        url = "https://apiconnect.angelbroking.com/rest/secure/angelbroking/gtt/v1/getgtt"
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            gtt_data = response.json()
-            tz = pytz.timezone("Asia/Kolkata")
-            today = datetime.now(tz).date()
-
-            todays_gtts = [
-                gtt for gtt in gtt_data['data']
-                if datetime.fromtimestamp(gtt['created_on'], tz).date() == today
-            ]
-
-            timestamp_str = datetime.now(tz).strftime("%Y-%m-%d_%H-%M")
-            filename = f"gttList_{timestamp_str}.txt"
-            with open(filename, "w") as file:
-                json.dump(todays_gtts, file, indent=2)
-
-            print(f"\nSaved {len(todays_gtts)} GTT entries to {filename}")
-        else:
-            print(f"Failed to fetch GTT list: {response.text}")
-    except Exception as e:
-        print(f"Error in fallback GTT fetch: {str(e)}")
-
-
-#********************************************************************#
-def save_todays_gtt_list(smartApi):
-    try:
-        response = smartApi.gtt_lists()
-
-        tz = pytz.timezone("Asia/Kolkata")
-        today = datetime.now(tz).date()
-        todays_gtts = []
-
-        for gtt in response['data']:
-            created_time = datetime.fromtimestamp(gtt['created_on'], tz).date()
-            if created_time == today:
-                todays_gtts.append(gtt)
-
-        # Generate filename with current date and time
-        timestamp_str = datetime.now(tz).strftime("%Y-%m-%d_%H-%M")
-        filename = f"gttList_{timestamp_str}.txt"
-
-        with open(filename, "w") as file:
-            json.dump(todays_gtts, file, indent=2)
-
-        print(f"\nSaved {len(todays_gtts)} GTT entries to {filename}")
-    except Exception as e:
-        print(f"Error fetching or saving GTT list: {str(e)}")
-
-
-#********************************************************************#
-
-order_fetcher.get_open_orders(smartApi)
-order_fetcher.fetch_gtt_list_fallback(smartApi)
-
